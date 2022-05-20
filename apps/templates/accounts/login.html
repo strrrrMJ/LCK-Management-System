@@ -1,0 +1,103 @@
+{% extends "layouts/base-fullscreen.html" %} {% block title %} Sign IN {%
+endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<div class="page-header align-items-start min-vh-100" id="whole">
+  <span class="mask bg-gradient-dark opacity-6"></span>
+  <div class="container my-auto">
+    <div class="row">
+      <div class="col-lg-4 col-md-8 col-12 mx-auto">
+        <div class="card z-index-0 fadeIn3 fadeInBottom">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <div
+              class="bg-gradient-info shadow-primary border-radius-lg py-3 pe-1"
+            >
+              <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">
+                LCK职业联赛管理系统
+              </h4>
+              <div class="row mt-3">
+                <p class="mb-0 text-white text-center">
+                  {% if msg %} {{ msg | safe }} {% else %} {% endif %}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <form role="form" method="post" action="" class="text-start">
+              {{ form.hidden_tag() }}
+
+              <div class="input-group input-group-outline mb-3">
+                <label class="form-label">用户名</label>
+                {{ form.username(class="form-control") }}
+              </div>
+              <div class="input-group input-group-outline mb-3">
+                <label class="form-label">密码</label>
+                {{ form.password(class="form-control", type="password") }}
+              </div>
+              <div
+                class="form-check form-switch d-flex align-items-center mb-3"
+              >
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="rememberMe"
+                />
+                <label class="form-check-label mb-0 ms-2" for="rememberMe"
+                  >记住我</label
+                >
+              </div>
+              <div class="text-center">
+                <button
+                  type="submit"
+                  name="login"
+                  class="btn bg-gradient-info w-100 my-4 mb-2"
+                >
+                  登录
+                </button>
+              </div>
+              <p class="mt-4 text-sm text-center">
+                还没有账号?
+                <a
+                  href="{{ url_for('authentication_blueprint.register') }}"
+                  class="text-primary text-gradient font-weight-bold"
+                  >注册</a
+                >
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include 'includes/footer-fullscreen.html' %}
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+  var imgArr = [
+    "/static/assets/img/teamimg/af.png",
+    "/static/assets/img/teamimg/bro.png",
+    "/static/assets/img/teamimg/drx.png",
+    "/static/assets/img/teamimg/dwg.png",
+    "/static/assets/img/teamimg/gen.png",
+    "/static/assets/img/teamimg/gen.png",
+    "/static/assets/img/teamimg/hle.png",
+    "/static/assets/img/teamimg/kt.png",
+    "/static/assets/img/teamimg/lsb.png",
+    "/static/assets/img/teamimg/ns.png",
+    "/static/assets/img/teamimg/t1.jpeg",
+  ];
+  var currentImg = Math.floor(Math.random() * 10);
+  function changeImg() {
+    var img = document.getElementById("whole");
+    img.style.backgroundImage = "url(" + imgArr[currentImg] + ")";
+  }
+  changeImg();
+</script>
+{% endblock javascripts %}
