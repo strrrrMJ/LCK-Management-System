@@ -20,18 +20,33 @@ def index():
 @login_required
 def tables():
     all_playerinfo = PlayerInfo.query.all()
-    tbody_str = ""
-    tr_template = "<tr><td class='font-weight-bold'>{id}</td><td class='font-weight-bold'>{realname}</td><td class='font-weight-bold'>{birthday}</td><td \
-        class='font-weight-bold'>{residency}</td></tr>"
-
+    playerinfolist = []
     for playerinfo in all_playerinfo:
-        tbody_str += tr_template.format(
-            id=playerinfo.id,
-            realname=playerinfo.name,
-            birthday=playerinfo.birthday,
-            residency=playerinfo.residency,
-        )
-    return render_template("home/tables.html", segment="tables", tbody_str=tbody_str)
+        item = dict()
+        item["id"] = playerinfo.id
+        item["name"] = playerinfo.name
+        item["birthday"] = playerinfo.birthday
+        item["residency"] = playerinfo.residency
+        playerinfolist.append(item)
+    return render_template(
+        "home/tables.html", segment="tables", playerinfolist=playerinfolist
+    )
+
+
+# def tables():
+#     all_playerinfo = PlayerInfo.query.all()
+#     tbody_str = ""
+#     tr_template = "<tr><td class='text-sm font-weight-bold'><img src='static/assets/img/player-pic/{id}.png' class='border-radius-lg' width='60px' /><a href='#'>{id}</a></td><td class='text-xs font-weight-bold'>{realname}</td><td class='text-xs font-weight-bold'>{birthday}</td><td \
+#         class='text-xs font-weight-bold'>{residency}</td></tr>"
+
+#     for playerinfo in all_playerinfo:
+#         tbody_str += tr_template.format(
+#             id=playerinfo.id,
+#             realname=playerinfo.name,
+#             birthday=playerinfo.birthday,
+#             residency=playerinfo.residency,
+#         )
+#     return render_template("home/tables.html", segment="tables", tbody_str=tbody_str)
 
 
 @blueprint.route("/billing.html")

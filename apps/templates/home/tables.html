@@ -452,7 +452,30 @@
 									<th></th>
 								</tr>
 							</thead>
-							<tbody id="player_info_table"></tbody>
+							<tbody>
+								{% for playerinfo in playerinfolist %}
+								<tr>
+									<td class="text-sm font-weight-bold">
+										<img
+											src="static/assets/img/player-pic/{{playerinfo.id}}.png"
+											alt="{{playerinfo.id}}"
+											class="border-radius-lg"
+											width="60px"
+										/>
+										<a href="#">{{playerinfo.id}}</a>
+									</td>
+									<td class="text-xs font-weight-bold">
+										{{playerinfo.name}}
+									</td>
+									<td class="text-xs font-weight-bold">
+										{{playerinfo.birthday}}
+									</td>
+									<td class="text-xs font-weight-bold">
+										{{playerinfo.residency}}
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
 						</table>
 					</div>
 				</div>
@@ -464,10 +487,4 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}
-<script>
-	var player_info_table = document.getElementById("player_info_table");
-	player_info_table.innerHTML = "{{tbody_str|safe}}";
-	console.log(11);
-</script>
-{% endblock javascripts %}
+{% block javascripts %} {% endblock javascripts %}
