@@ -1,0 +1,249 @@
+{% extends "layouts/base.html" %} {% block title %} Profile {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+
+<div class="container-fluid px-2 px-md-4">
+	<div
+		class="page-header min-height-300 border-radius-xl mt-4"
+		style="
+			background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+		"
+	>
+		<span class="mask bg-gradient-primary opacity-6"></span>
+	</div>
+	{% if search %}
+	<div class="ms-md-auto pe-md-3 d-flex align-items-center">
+		<div class="input-group input-group-outline">
+			<form action="/player-data.html" method="post">
+				<label class="form-label"
+					>{% if message %}{{ message }} {% else %}Type here...{%
+					endif %}</label
+				>
+				<input type="text" class="form-control" name="player-id" />
+				<input type="submit" value="submit" />
+			</form>
+		</div>
+	</div>
+	{% else %}
+	<div class="card card-body mx-3 mx-md-4 mt-n6">
+		<div class="row gx-4 mb-2">
+			<div class="col-auto">
+				<div class="avatar avatar-xl position-relative">
+					<img
+						src="/static/assets/img/player-pic/{{ player_id }}.png"
+						alt="profile_image"
+						class="w-100 border-radius-lg shadow-sm"
+					/>
+				</div>
+			</div>
+			<div class="col-auto my-auto">
+				<div class="h-100">
+					<h5 class="mb-1">{{ player_id }}</h5>
+					<p class="mb-0 font-weight-normal text-sm">
+						from {{ player_team }}
+						<img
+							src="/static/assets/img/team-icon/{{ player_team }}.png"
+							alt="{{ player_team }}.png"
+						/>
+					</p>
+				</div>
+			</div>
+			<div
+				class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3"
+			>
+				<div class="nav-wrapper position-relative end-0">
+					<ul class="nav nav-pills nav-fill p-1" role="tablist">
+						<li class="nav-item">
+							<a
+								class="nav-link mb-0 px-0 py-1 active"
+								data-bs-toggle="tab"
+								href="javascript:;"
+								role="tab"
+								aria-selected="true"
+							>
+								<i
+									class="material-icons text-lg position-relative"
+									>home</i
+								>
+								<span class="ms-1">App</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link mb-0 px-0 py-1"
+								data-bs-toggle="tab"
+								href="javascript:;"
+								role="tab"
+								aria-selected="false"
+							>
+								<i
+									class="material-icons text-lg position-relative"
+									>email</i
+								>
+								<span class="ms-1">Messages</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link mb-0 px-0 py-1"
+								data-bs-toggle="tab"
+								href="javascript:;"
+								role="tab"
+								aria-selected="false"
+							>
+								<i
+									class="material-icons text-lg position-relative"
+									>settings</i
+								>
+								<span class="ms-1">Settings</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<table class="table align-items-center justify-content-center mb-0">
+				<thead>
+					<tr>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							赛季
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							队伍
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							比赛场数
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							胜场数
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							败场数
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							胜率
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							场均击杀
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							场均死亡
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							场均助攻
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							场均kda值
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							场均补刀数
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							分均补刀数
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							场均经济
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							分均经济
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							击杀参与率
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							击杀占比
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							经济占比
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							英雄使用数量
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for data in player_data %}
+					<tr>
+						<td class="text-xs font-weight-bold">
+							{{data.year}} {{data.season}}
+						</td>
+						<td class="text-sm font-weight-bold">
+							<img
+								src="static/assets/img/team-icon/{{data.team_name}}.png"
+								alt="{{data.team_name}}.png"
+								class="border-radius-lg"
+								width="60px"
+							/>
+						</td>
+						<td class="text-xs font-weight-bold">{{data.g}}</td>
+						<td class="text-xs font-weight-bold">{{data.w}}</td>
+						<td class="text-xs font-weight-bold">{{data.l}}</td>
+						<td class="text-xs font-weight-bold">{{data.wr}}%</td>
+						<td class="text-xs font-weight-bold">{{data.k}}</td>
+						<td class="text-xs font-weight-bold">{{data.d}}</td>
+						<td class="text-xs font-weight-bold">{{data.a}}</td>
+						<td class="text-xs font-weight-bold">{{data.kda}}</td>
+						<td class="text-xs font-weight-bold">{{data.cs}}</td>
+						<td class="text-xs font-weight-bold">
+							{{data.cs_per_minute}}
+						</td>
+						<td class="text-xs font-weight-bold">{{data.gold}}k</td>
+						<td class="text-xs font-weight-bold">
+							{{data.g_per_minute}}
+						</td>
+						<td class="text-xs font-weight-bold">{{data.kpar}}%</td>
+						<td class="text-xs font-weight-bold">{{data.ks}}%</td>
+						<td class="text-xs font-weight-bold">{{data.gs}}%</td>
+						<td class="text-xs font-weight-bold">{{data.cp}}</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% include 'includes/footer.html' %} {% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -118,6 +118,38 @@ def tables():
     )
 
 
+@blueprint.route("/player-data.html", methods=["GET", "POST"])
+@login_required
+def player_data():
+    if request.method == "POST":
+        player_id = request.form["player-id"]
+        player_data = (
+            PlayerData.query.filter_by(id=player_id)
+            .order_by(PlayerData.year.desc())
+            .all()
+        )
+        if not player_data:
+            return render_template(
+                "home/player-data.html",
+                segment="player-data",
+                search=True,
+                message="This Player Doesn't Exist!",
+            )
+        else:
+            return render_template(
+                "home/player-data.html",
+                segment="player-data",
+                search=False,
+                player_data=player_data,
+                player_team=player_data[0].team_name,
+                player_id=player_data[0].id,
+            )
+    else:
+        return render_template(
+            "home/player-data.html", segment="player-data", search=True
+        )
+
+
 # def tables():
 #     all_playerinfo = PlayerInfo.query.all()
 #     tbody_str = ""
