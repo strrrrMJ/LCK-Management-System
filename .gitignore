@@ -38,3 +38,4 @@ requirements*
 .vscode
 playerinfo.xml
 apps/static
+*.csv

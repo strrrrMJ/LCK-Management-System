@@ -34,5 +34,5 @@ class PlayerData(db.Model):
     gs = db.Column(db.Float(), nullable=False)  # 经济占比
     cp = db.Column(db.Integer(), nullable=False)  # 英雄使用数量
 
-    def __repr__(self) -> str:
-        return super().__repr__()
+    # def __repr__(self) -> str:
+    #     return super().__repr__()

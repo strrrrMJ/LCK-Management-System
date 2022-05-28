@@ -7,13 +7,92 @@ from apps.home import blueprint
 from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-from apps.home.models import PlayerInfo
+from apps.home.models import PlayerInfo, PlayerData
 
 
 @blueprint.route("/index.html")
 @login_required
 def index():
-    return render_template("home/index.html", segment="index")
+    SHOW_DATA_NUM = 7
+    high_kda_data_list = (
+        PlayerData.query.filter_by(year=2022, season="Spring")
+        .order_by(PlayerData.kda.desc())
+        .limit(SHOW_DATA_NUM)
+        .all()
+    )
+    kda_data = {
+        "labels": [high_kda_data_list[i].id for i in range(SHOW_DATA_NUM)],
+        "datasets": [
+            {
+                "label": "KDA",
+                "tension": 0.4,
+                "borderWidth": 0,
+                "borderRadius": 4,
+                "borderSkipped": False,
+                "backgroundColor": "rgba(255, 255, 255, .8)",
+                "data": [high_kda_data_list[i].kda for i in range(SHOW_DATA_NUM)],
+                "maxBarThickness": 6,
+            },
+        ],
+    }
+
+    high_kill_data_list = (
+        PlayerData.query.filter_by(year=2022, season="Spring")
+        .order_by(PlayerData.k.desc())
+        .limit(SHOW_DATA_NUM)
+        .all()
+    )
+    kill_data = {
+        "labels": [high_kill_data_list[i].id for i in range(SHOW_DATA_NUM)],
+        "datasets": [
+            {
+                "label": "KILL",
+                "tension": 0.4,
+                "borderWidth": 0,
+                "borderRadius": 4,
+                "borderSkipped": False,
+                "backgroundColor": "rgba(255, 255, 255, .8)",
+                "data": [high_kill_data_list[i].k for i in range(SHOW_DATA_NUM)],
+                "maxBarThickness": 6,
+            },
+        ],
+    }
+
+    high_assistance_data_list = (
+        PlayerData.query.filter_by(year=2022, season="Spring")
+        .order_by(PlayerData.a.desc())
+        .limit(SHOW_DATA_NUM)
+        .all()
+    )
+    assistance_data = {
+        "labels": [high_assistance_data_list[i].id for i in range(SHOW_DATA_NUM)],
+        "datasets": [
+            {
+                "label": "ASSISTANCE",
+                "tension": 0.4,
+                "borderWidth": 0,
+                "borderRadius": 4,
+                "borderSkipped": False,
+                "backgroundColor": "rgba(255, 255, 255, .8)",
+                "data": [high_assistance_data_list[i].a for i in range(SHOW_DATA_NUM)],
+                "maxBarThickness": 6,
+            },
+        ],
+    }
+
+    return render_template(
+        "home/index.html",
+        segment="index",
+        kda_data=kda_data,
+        kill_data=kill_data,
+        assistance_data=assistance_data,
+        best_kda_player=high_kda_data_list[0],
+        best_kill_player=high_kill_data_list[0],
+        best_assistance_player=high_assistance_data_list[0],
+        best_cp_player=PlayerData.query.filter_by(year=2022, season="Spring")
+        .order_by(PlayerData.cp.desc())
+        .all()[1],
+    )
 
 
 @blueprint.route("/tables.html")
@@ -23,6 +102,12 @@ def tables():
     playerinfolist = []
     for playerinfo in all_playerinfo:
         item = dict()
+        item["team_name"] = (
+            PlayerData.query.filter_by(id=playerinfo.id)
+            .order_by(PlayerData.year.desc())
+            .first()
+            .team_name
+        )
         item["id"] = playerinfo.id
         item["name"] = playerinfo.name
         item["birthday"] = playerinfo.birthday
