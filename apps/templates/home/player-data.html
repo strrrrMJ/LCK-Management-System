@@ -1,9 +1,140 @@
 {% extends "layouts/base.html" %} {% block title %} Profile {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %} {% block content %}
+{% block stylesheets %}
+<style>
+	form {
+		--color-light: white;
+		--color-dark: #212121;
+		--color-signal: #fab700;
+		--color-background: var(--color-light);
+		--color-text: var(--color-dark);
+		--color-accent: var(--color-signal);
+		--size-bezel: 0.5rem;
+		--size-radius: 4px;
+		line-height: 1.4;
+		font-family: "Inter", sans-serif;
+		font-size: calc(0.6rem + 0.4vw);
+		color: var(--color-text);
+		font-weight: 300;
+		padding: calc(var(--size-bezel) * 3) calc(var(--size-bezel) * 3);
+	}
+	h1,
+	h2,
+	h3 {
+		font-weight: 900;
+	}
+
+	mark {
+		background: var(--color-accent);
+		color: var(--color-text);
+		font-weight: bold;
+		padding: 0 0.2em;
+	}
+
+	.card0 {
+		background: var(--color-background);
+		padding: calc(4 * var(--size-bezel));
+		margin-top: calc(4 * var(--size-bezel));
+		border-radius: var(--size-radius);
+		border: 3px solid var(--color-shadow, currentColor);
+		box-shadow: 0.5rem 0.5rem 0 var(--color-shadow, currentColor);
+	}
+
+	.l-design-widht {
+		max-width: 40rem;
+		padding: 1rem;
+	}
+
+	.input {
+		position: relative;
+	}
+
+	.input__label {
+		position: absolute;
+		left: 0;
+		top: 0;
+		padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * 0.5);
+		margin: calc(var(--size-bezel) * 0.75 + 3px)
+			calc(var(--size-bezel) * 0.5);
+		background: pink;
+		white-space: nowrap;
+		transform: translate(0, 0);
+		transform-origin: 0 0;
+		background: var(--color-background);
+		transition: transform 120ms ease-in;
+		font-weight: bold;
+		line-height: 1.2;
+	}
+
+	.input__field {
+		box-sizing: border-box;
+		display: block;
+		width: 100%;
+		border: 3px solid currentColor;
+		padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+		color: currentColor;
+		background: transparent;
+		border-radius: var(--size-radius);
+	}
+
+	.input__field:focus + .input__label,
+	.input__field:not(:placeholder-shown) + .input__label {
+		transform: translate(0.25rem, -65%) scale(0.8);
+		color: var(--color-accent);
+	}
+
+	.button-group {
+		margin-top: calc(var(--size-bezel) * 2.5);
+	}
+
+	button {
+		color: currentColor;
+		padding: var(--size-bezel) calc(var(--size-bezel) * 2);
+		background: var(--color-accent);
+		border: none;
+		border-radius: var(--size-radius);
+		font-weight: 900;
+	}
+
+	button[type="reset"] {
+		background: var(--color-background);
+		font-weight: 200;
+	}
+
+	button + button {
+		margin-left: calc(var(--size-bezel) * 2);
+	}
+
+	.icon {
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		margin-right: 0.5em;
+	}
+
+	.hidden {
+		display: none;
+	}
+</style>
+{% endblock stylesheets %} {% block content %}
 
 <div class="container-fluid px-2 px-md-4">
+	{% if search %}
+	<form action="/player-data.html" method="post">
+		<div class="card card0">
+			<h2>查询选手</h2>
+			<label class="input">
+				<input class="input__field" type="text" name="player-id" />
+				<span class="input__label">输入选手ID</span>
+			</label>
+			<div class="button-group">
+				<button type="submit">Search</button>
+				<button type="reset">Reset</button>
+			</div>
+		</div>
+	</form>
+	{% else %}
 	<div
 		class="page-header min-height-300 border-radius-xl mt-4"
 		style="
@@ -12,20 +143,6 @@
 	>
 		<span class="mask bg-gradient-primary opacity-6"></span>
 	</div>
-	{% if search %}
-	<div class="ms-md-auto pe-md-3 d-flex align-items-center">
-		<div class="input-group input-group-outline">
-			<form action="/player-data.html" method="post">
-				<label class="form-label"
-					>{% if message %}{{ message }} {% else %}Type here...{%
-					endif %}</label
-				>
-				<input type="text" class="form-control" name="player-id" />
-				<input type="submit" value="submit" />
-			</form>
-		</div>
-	</div>
-	{% else %}
 	<div class="card card-body mx-3 mx-md-4 mt-n6">
 		<div class="row gx-4 mb-2">
 			<div class="col-auto">
@@ -238,6 +355,13 @@
 					{% endfor %}
 				</tbody>
 			</table>
+			<button
+				type="button"
+				onclick="javascript:window.location.href='/player-data.html'"
+				class="btn btn-success"
+			>
+				返回
+			</button>
 		</div>
 	</div>
 	{% endif %}
