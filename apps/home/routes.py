@@ -7,7 +7,7 @@ from apps.home import blueprint
 from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
-from apps.home.models import PlayerInfo, PlayerData
+from apps.home.models import PlayerInfo, PlayerData, Schedule
 
 
 @blueprint.route("/index.html")
@@ -148,6 +148,37 @@ def player_data():
         return render_template(
             "home/player-data.html", segment="player-data", search=True
         )
+
+
+@blueprint.route("/team-data.html", methods=["GET", "POST"])
+@login_required
+def team_data():
+    if request.method == "POST":
+        team_name = request.form["team-name"]
+        schedule = (
+            Schedule.query.filter(
+                (Schedule.blue_team == team_name) | (Schedule.red_team == team_name)
+            )
+            .order_by(Schedule.year.desc())
+            .all()
+        )
+        if not schedule:
+            return render_template(
+                "home/team-data.html",
+                segment="team-data",
+                search=True,
+                message="This Team Doesn't Exist!",
+            )
+        else:
+            return render_template(
+                "home/team-data.html",
+                segment="team-data",
+                search=False,
+                team_name=team_name,
+                schedule=schedule,
+            )
+    else:
+        return render_template("home/team-data.html", segment="team-data", search=True)
 
 
 # def tables():

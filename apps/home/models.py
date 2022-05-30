@@ -36,3 +36,26 @@ class PlayerData(db.Model):
 
     # def __repr__(self) -> str:
     #     return super().__repr__()
+
+
+class Schedule(db.Model):
+    __tablename__ = "Schedule"
+
+    time = db.Column(db.String(30), primary_key=True)
+    year = db.Column(db.Integer(), nullable=False)
+    season = db.Column(db.Enum("Spring", "Summer"), nullable=False)
+    patch = db.Column(db.String(10), nullable=False)
+    blue_team = db.Column(db.String(30), nullable=False)
+    red_team = db.Column(db.String(30), nullable=False)
+    winner = db.Column(db.String(30), nullable=False)
+    blue_player1_id = db.Column(db.String(30), nullable=False)
+    blue_player2_id = db.Column(db.String(30), nullable=False)
+    blue_player3_id = db.Column(db.String(30), nullable=False)
+    blue_player4_id = db.Column(db.String(30), nullable=False)
+    blue_player5_id = db.Column(db.String(30), nullable=False)
+    red_player1_id = db.Column(db.String(30), nullable=False)
+    red_player2_id = db.Column(db.String(30), nullable=False)
+    red_player3_id = db.Column(db.String(30), nullable=False)
+    red_player4_id = db.Column(db.String(30), nullable=False)
+    red_player5_id = db.Column(db.String(30), nullable=False)
+    length = db.Column(db.String(10), nullable=False)

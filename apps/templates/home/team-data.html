@@ -1,0 +1,327 @@
+{% extends "layouts/base.html" %} {% block title %} Profile {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<style>
+	form {
+		--color-light: white;
+		--color-dark: #212121;
+		--color-signal: #fab700;
+		--color-background: var(--color-light);
+		--color-text: var(--color-dark);
+		--color-accent: var(--color-signal);
+		--size-bezel: 0.5rem;
+		--size-radius: 4px;
+		line-height: 1.4;
+		font-family: "Inter", sans-serif;
+		font-size: calc(0.6rem + 0.4vw);
+		color: var(--color-text);
+		font-weight: 300;
+		padding: calc(var(--size-bezel) * 3) calc(var(--size-bezel) * 3);
+	}
+	h1,
+	h2,
+	h3 {
+		font-weight: 900;
+	}
+
+	mark {
+		background: var(--color-accent);
+		color: var(--color-text);
+		font-weight: bold;
+		padding: 0 0.2em;
+	}
+
+	.card0 {
+		background: var(--color-background);
+		padding: calc(4 * var(--size-bezel));
+		margin-top: calc(4 * var(--size-bezel));
+		border-radius: var(--size-radius);
+		border: 3px solid var(--color-shadow, currentColor);
+		box-shadow: 0.5rem 0.5rem 0 var(--color-shadow, currentColor);
+	}
+	.card--inverted {
+		--color-background: var(--color-dark);
+		color: var(--color-light);
+		--color-shadow: var(--color-accent);
+	}
+	.l-design-widht {
+		max-width: 40rem;
+		padding: 1rem;
+	}
+
+	.input {
+		position: relative;
+	}
+
+	.input__label {
+		position: absolute;
+		left: 0;
+		top: 0;
+		padding: calc(var(--size-bezel) * 0.75) calc(var(--size-bezel) * 0.5);
+		margin: calc(var(--size-bezel) * 0.75 + 3px)
+			calc(var(--size-bezel) * 0.5);
+		background: pink;
+		white-space: nowrap;
+		transform: translate(0, 0);
+		transform-origin: 0 0;
+		background: var(--color-background);
+		transition: transform 120ms ease-in;
+		font-weight: bold;
+		line-height: 1.2;
+	}
+
+	.input__field {
+		box-sizing: border-box;
+		display: block;
+		width: 100%;
+		border: 3px solid currentColor;
+		padding: calc(var(--size-bezel) * 1.5) var(--size-bezel);
+		color: currentColor;
+		background: transparent;
+		border-radius: var(--size-radius);
+	}
+
+	.input__field:focus + .input__label,
+	.input__field:not(:placeholder-shown) + .input__label {
+		transform: translate(0.25rem, -65%) scale(0.8);
+		color: var(--color-accent);
+	}
+
+	.button-group {
+		margin-top: calc(var(--size-bezel) * 2.5);
+	}
+
+	button {
+		color: currentColor;
+		padding: var(--size-bezel) calc(var(--size-bezel) * 2);
+		background: var(--color-accent);
+		border: none;
+		border-radius: var(--size-radius);
+		font-weight: 900;
+	}
+
+	button[type="reset"] {
+		background: var(--color-background);
+		font-weight: 200;
+	}
+
+	button + button {
+		margin-left: calc(var(--size-bezel) * 2);
+	}
+
+	.icon {
+		display: inline-block;
+		width: 1em;
+		height: 1em;
+		margin-right: 0.5em;
+	}
+
+	.hidden {
+		display: none;
+	}
+</style>
+{% endblock stylesheets %} {% block content %}
+
+<div class="container-fluid px-2 px-md-4">
+	{% if search %}
+	<form action="/team-data.html" method="post">
+		<div class="card card0 card--inverted">
+			<h2 style="color: white">查询队伍</h2>
+			<label class="input">
+				<input class="input__field" type="text" name="team-name" />
+				<span class="input__label">输入队伍名称</span>
+			</label>
+			<div class="button-group">
+				<button type="submit">Search</button>
+				<button type="reset">Reset</button>
+			</div>
+		</div>
+	</form>
+	{% else %}
+	<div
+		class="page-header min-height-300 border-radius-xl mt-4"
+		style="
+			background-image: url('https://images.unsplash.com/photo-1531512073830-ba890ca4eba2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+		"
+	>
+		<span class="mask bg-gradient-primary opacity-6"></span>
+	</div>
+	<div class="card card-body mx-3 mx-md-4 mt-n6">
+		<div class="row gx-4 mb-2">
+			<div class="col-auto">
+				<div class="avatar avatar-xl position-relative">
+					<img
+						src="/static/assets/img/team-icon/{{ team_name }}.png"
+						class="w-100 border-radius-lg shadow-sm"
+					/>
+				</div>
+			</div>
+			<div class="col-auto my-auto">
+				<div class="h-100">
+					<h5 class="mb-1">{{ team_name }}</h5>
+				</div>
+			</div>
+			<div
+				class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3"
+			>
+				<div class="nav-wrapper position-relative end-0">
+					<ul class="nav nav-pills nav-fill p-1" role="tablist">
+						<li class="nav-item">
+							<a
+								class="nav-link mb-0 px-0 py-1 active"
+								data-bs-toggle="tab"
+								href="javascript:;"
+								role="tab"
+								aria-selected="true"
+							>
+								<i
+									class="material-icons text-lg position-relative"
+									>home</i
+								>
+								<span class="ms-1">App</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link mb-0 px-0 py-1"
+								data-bs-toggle="tab"
+								href="javascript:;"
+								role="tab"
+								aria-selected="false"
+							>
+								<i
+									class="material-icons text-lg position-relative"
+									>email</i
+								>
+								<span class="ms-1">Messages</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a
+								class="nav-link mb-0 px-0 py-1"
+								data-bs-toggle="tab"
+								href="javascript:;"
+								role="tab"
+								aria-selected="false"
+							>
+								<i
+									class="material-icons text-lg position-relative"
+									>settings</i
+								>
+								<span class="ms-1">Settings</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<table class="table align-items-center justify-content-center mb-0">
+				<thead>
+					<tr>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							时间
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							赛季
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							版本
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							蓝方队伍
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							红方队伍
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							胜者
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							蓝方选手
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							红方选手
+						</th>
+						<th
+							class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
+						>
+							比赛时长
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for data in schedule %}
+					<tr>
+						<td class="text-xs font-weight-bold">{{data.time}}</td>
+						<td class="text-sm font-weight-bold">
+							LCK {{data.year}} {{data.season}}
+						</td>
+						<td class="text-xs font-weight-bold">{{data.patch}}</td>
+						<td class="text-xs font-weight-bold">
+							<img
+								src="/static/assets/img/team-icon/{{
+							data.blue_team }}.png"
+								alt="{{ data.blue_team }}"
+							/>
+						</td>
+						<td class="text-xs font-weight-bold">
+							<img
+								src="/static/assets/img/team-icon/{{
+							data.red_team }}.png"
+								alt="{{ data.red_team }}"
+							/>
+						</td>
+						<td class="text-xs font-weight-bold">
+							<img
+								src="/static/assets/img/team-icon/{{
+							data.winner }}.png"
+								alt="{{ data.winner }}"
+							/>
+						</td>
+						<td class="text-xs font-weight-bold">
+							{{data.blue_player1_id}},{{data.blue_player2_id}},{{data.blue_player3_id}},{{data.blue_player4_id}},{{data.blue_player5_id}}
+						</td>
+						<td class="text-xs font-weight-bold">
+							{{data.red_player1_id}},{{data.red_player2_id}},{{data.red_player3_id}},{{data.red_player4_id}},{{data.red_player5_id}}
+						</td>
+						<td class="text-xs font-weight-bold">
+							{{data.length}}
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<button
+				type="button"
+				onclick="javascript:window.location.href='/team-data.html'"
+				class="btn btn-success"
+			>
+				返回
+			</button>
+		</div>
+	</div>
+	{% endif %}
+</div>
+
+{% include 'includes/footer.html' %} {% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
