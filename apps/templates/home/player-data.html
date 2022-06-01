@@ -166,59 +166,6 @@
 					</p>
 				</div>
 			</div>
-			<div
-				class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3"
-			>
-				<div class="nav-wrapper position-relative end-0">
-					<ul class="nav nav-pills nav-fill p-1" role="tablist">
-						<li class="nav-item">
-							<a
-								class="nav-link mb-0 px-0 py-1 active"
-								data-bs-toggle="tab"
-								href="javascript:;"
-								role="tab"
-								aria-selected="true"
-							>
-								<i
-									class="material-icons text-lg position-relative"
-									>home</i
-								>
-								<span class="ms-1">App</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a
-								class="nav-link mb-0 px-0 py-1"
-								data-bs-toggle="tab"
-								href="javascript:;"
-								role="tab"
-								aria-selected="false"
-							>
-								<i
-									class="material-icons text-lg position-relative"
-									>email</i
-								>
-								<span class="ms-1">Messages</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a
-								class="nav-link mb-0 px-0 py-1"
-								data-bs-toggle="tab"
-								href="javascript:;"
-								role="tab"
-								aria-selected="false"
-							>
-								<i
-									class="material-icons text-lg position-relative"
-									>settings</i
-								>
-								<span class="ms-1">Settings</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
 		</div>
 		<div class="row">
 			<table class="table align-items-center justify-content-center mb-0">
@@ -324,12 +271,13 @@
 							{{data.year}} {{data.season}}
 						</td>
 						<td class="text-sm font-weight-bold">
-							<img
-								src="static/assets/img/team-icon/{{data.team_name}}.png"
-								alt="{{data.team_name}}.png"
-								class="border-radius-lg"
-								width="60px"
-							/>
+							<a href="/team-data.html/{{data.team_name}}"
+								><img
+									src="/static/assets/img/team-icon/{{data.team_name}}.png"
+									alt="{{data.team_name}}.png"
+									class="border-radius-lg"
+									width="60px"
+							/></a>
 						</td>
 						<td class="text-xs font-weight-bold">{{data.g}}</td>
 						<td class="text-xs font-weight-bold">{{data.w}}</td>
@@ -360,7 +308,7 @@
 				onclick="javascript:window.location.href='/player-data.html'"
 				class="btn btn-success"
 			>
-				返回
+				返回查询页面
 			</button>
 		</div>
 	</div>
