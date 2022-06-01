@@ -158,11 +158,13 @@
 				<div class="h-100">
 					<h5 class="mb-1">{{ player_id }}</h5>
 					<p class="mb-0 font-weight-normal text-sm">
-						from {{ player_team }}
-						<img
-							src="/static/assets/img/team-icon/{{ player_team }}.png"
-							alt="{{ player_team }}.png"
-						/>
+						from
+						<a href="/team-data.html/{{ player_team }}"
+							>{{ player_team }}
+							<img
+								src="/static/assets/img/team-icon/{{ player_team }}.png"
+								alt="{{ player_team }}.png"
+						/></a>
 					</p>
 				</div>
 			</div>
